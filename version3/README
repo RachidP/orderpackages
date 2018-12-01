@@ -1,0 +1,51 @@
+Used golang:1.11.2-alpine3.8 as image in golang
+otherwise the project is the some as version1
+is the some
+A complete example show how a program is initialized with go. 
+In this case I also used go modules and docker
+
+go run *.go
+├── Main package is executed
+├── All imported packages are initialized
+|  ├── All imported packages are initialized (recursive definition)
+|  ├── All global variables are initialized 
+|  └── init functions are called in lexical file name order
+└── Main package is initialized
+   ├── All global variables are initialized
+   └── init functions are called in lexical file name order
+
+link:
+https://medium.com/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc
+
+
+docker with golang:
+1)write a file dockerfile
+
+case A: the following istructions will entry inside a docker container
+
+FROM golang:latest
+#set the working directory on docker where put golang packages
+WORKDIR /github.com/RachidP/orderpackages2 
+RUN pwd
+COPY . .
+RUN ls -la
+
+
+case B: the following istructions will compile the app inside the docker container
+FROM golang:latest
+
+WORKDIR /github.com/RachidP/orderpackages2
+RUN pwd
+COPY . .
+RUN ls -la
+RUN go build -o orderpackages app/* 
+ENTRYPOINT [ "./orderpackages" ]
+
+
+docker commands
+1)docker build -t orderpackage:v3 .
+2)docker run -it --rm --name my_running_app2 orderpackage:v3
+
+
+
+NB. I create this folder inside the gopath

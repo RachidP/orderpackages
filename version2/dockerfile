@@ -1,0 +1,9 @@
+FROM golang:1.11.2-alpine3.8
+
+
+WORKDIR /github.com/RachidP/orderpackages
+RUN pwd
+COPY . .
+RUN ls -la
+RUN go build -o orderpackages app/* 
+ENTRYPOINT [ "./orderpackages" ]
