@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/RachidP/exercises/orderpackages/version2/version"
+	"github.com/RachidP/exercises/orderpackages/version4/version"
 )
 
 func init() {
