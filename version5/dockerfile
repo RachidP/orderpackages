@@ -1,0 +1,17 @@
+FROM golang:1.11.2-alpine3.8 as builder
+
+WORKDIR /github.com/RachidP/orderpackages
+#RUN pwd
+COPY . .
+#RUN ls -la
+RUN go build -o orderpackages app/* 
+
+
+
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates 
+WORKDIR /root/
+COPY --from=builder /github.com/RachidP/orderpackages/orderpackages .
+ENTRYPOINT [ "./orderpackages" ]
+#CMD ["./orderpackages" ]
+
